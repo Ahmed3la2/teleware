@@ -1,0 +1,17 @@
+C:\Users\ahmed\source\repos\TeleWareAssessment\TeleWare.Inferastructure\obj\Debug\net6.0\TeleWare.Inferastructure.csproj.AssemblyReference.cache
+C:\Users\ahmed\source\repos\TeleWareAssessment\TeleWare.Inferastructure\obj\Debug\net6.0\TeleWare.Inferastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ahmed\source\repos\TeleWareAssessment\TeleWare.Inferastructure\obj\Debug\net6.0\TeleWare.Inferastructure.AssemblyInfoInputs.cache
+C:\Users\ahmed\source\repos\TeleWareAssessment\TeleWare.Inferastructure\obj\Debug\net6.0\TeleWare.Inferastructure.AssemblyInfo.cs
+C:\Users\ahmed\source\repos\TeleWareAssessment\TeleWare.Inferastructure\obj\Debug\net6.0\TeleWare.Inferastructure.csproj.CoreCompileInputs.cache
+C:\Users\ahmed\source\repos\TeleWareAssessment\TeleWare.Inferastructure\bin\Debug\net6.0\TeleWare.Inferastructure.deps.json
+C:\Users\ahmed\source\repos\TeleWareAssessment\TeleWare.Inferastructure\bin\Debug\net6.0\TeleWare.Inferastructure.runtimeconfig.json
+C:\Users\ahmed\source\repos\TeleWareAssessment\TeleWare.Inferastructure\bin\Debug\net6.0\TeleWare.Inferastructure.dll
+C:\Users\ahmed\source\repos\TeleWareAssessment\TeleWare.Inferastructure\bin\Debug\net6.0\TeleWare.Inferastructure.pdb
+C:\Users\ahmed\source\repos\TeleWareAssessment\TeleWare.Inferastructure\bin\Debug\net6.0\TeleWare.Core.dll
+C:\Users\ahmed\source\repos\TeleWareAssessment\TeleWare.Inferastructure\bin\Debug\net6.0\TeleWare.Core.pdb
+C:\Users\ahmed\source\repos\TeleWareAssessment\TeleWare.Inferastructure\obj\Debug\net6.0\TeleWare.Inferastructure.csproj.CopyComplete
+C:\Users\ahmed\source\repos\TeleWareAssessment\TeleWare.Inferastructure\obj\Debug\net6.0\TeleWare.Inferastructure.dll
+C:\Users\ahmed\source\repos\TeleWareAssessment\TeleWare.Inferastructure\obj\Debug\net6.0\refint\TeleWare.Inferastructure.dll
+C:\Users\ahmed\source\repos\TeleWareAssessment\TeleWare.Inferastructure\obj\Debug\net6.0\TeleWare.Inferastructure.pdb
+C:\Users\ahmed\source\repos\TeleWareAssessment\TeleWare.Inferastructure\obj\Debug\net6.0\TeleWare.Inferastructure.genruntimeconfig.cache
+C:\Users\ahmed\source\repos\TeleWareAssessment\TeleWare.Inferastructure\obj\Debug\net6.0\ref\TeleWare.Inferastructure.dll

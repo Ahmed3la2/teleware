@@ -1,0 +1,12 @@
+C:\Users\ahmed\source\repos\TeleWareAssessment\TeleWare.Core\obj\Debug\net6.0\TeleWare.Core.csproj.AssemblyReference.cache
+C:\Users\ahmed\source\repos\TeleWareAssessment\TeleWare.Core\obj\Debug\net6.0\TeleWare.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ahmed\source\repos\TeleWareAssessment\TeleWare.Core\obj\Debug\net6.0\TeleWare.Core.AssemblyInfoInputs.cache
+C:\Users\ahmed\source\repos\TeleWareAssessment\TeleWare.Core\obj\Debug\net6.0\TeleWare.Core.AssemblyInfo.cs
+C:\Users\ahmed\source\repos\TeleWareAssessment\TeleWare.Core\obj\Debug\net6.0\TeleWare.Core.csproj.CoreCompileInputs.cache
+C:\Users\ahmed\source\repos\TeleWareAssessment\TeleWare.Core\bin\Debug\net6.0\TeleWare.Core.deps.json
+C:\Users\ahmed\source\repos\TeleWareAssessment\TeleWare.Core\bin\Debug\net6.0\TeleWare.Core.dll
+C:\Users\ahmed\source\repos\TeleWareAssessment\TeleWare.Core\bin\Debug\net6.0\TeleWare.Core.pdb
+C:\Users\ahmed\source\repos\TeleWareAssessment\TeleWare.Core\obj\Debug\net6.0\TeleWare.Core.dll
+C:\Users\ahmed\source\repos\TeleWareAssessment\TeleWare.Core\obj\Debug\net6.0\refint\TeleWare.Core.dll
+C:\Users\ahmed\source\repos\TeleWareAssessment\TeleWare.Core\obj\Debug\net6.0\TeleWare.Core.pdb
+C:\Users\ahmed\source\repos\TeleWareAssessment\TeleWare.Core\obj\Debug\net6.0\ref\TeleWare.Core.dll

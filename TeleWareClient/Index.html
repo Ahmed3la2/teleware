@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>TeleWare </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description">
+        <meta content="Coderthemes" name="author">
+
+        <!-- third party css -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+        <!-- third party css end -->
+        
+        <!-- App css -->
+        <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" id="light-style">
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
+        
+    
+
+    </head>
+    <style>
+        .contain{
+            padding: 50px;
+            height: 551px;
+            background-color: white;
+            border: 1px solid #EEE;
+        }
+        ul{
+            list-style-type: none;
+        }
+        #myTable_filter{
+            display: none;
+        }
+        #myTable_info{
+            display: none;
+        }
+        #AddAdressBtn, #uAddAdressBtn{
+            vertical-align: super;
+            /* text-align: center; */
+            align-items: end;
+            display: flex;
+            margin-bottom: 6px;
+        }
+
+        .deleltBtn{
+            text-align: right;
+        }
+
+        .remove-item{
+            margin-left: 87%;
+            cursor: pointer;
+        }
+    </style>
+
+    <body class="loading" data-layout-config='{"leftSideBarTheme":"dark","layoutBoxed":false, "leftSidebarCondensed":false, "leftSidebarScrollable":false,"darkMode":false, "showRightSidebarOnStart": true}'>
+        <!-- Begin page -->
+        <div class="wrapper">
+            <!-- ========== Left Sidebar Start ========== -->
+            <div class="leftside-menu">
+    
+                <!-- LOGO -->
+                <a  class="logo text-center logo-light">
+                    <span class="logo-lg">
+                        <img src="./t.jpg" alt="" height="40">
+                    </span>
+                    <span class="logo-sm">
+                        <img src="./t.jpg" alt="" height="40">
+                    </span>
+                </a>
+
+                <!-- LOGO -->
+                <a  class="logo text-center logo-dark">
+                    <span class="logo-lg">
+                        <img src="./t.jpg" alt="" height="40">
+                    </span>
+                    <span class="logo-sm">
+                        <img src="./t.jpg" alt="" height="40">
+                    </span>
+                </a>
+    
+                <div class="h-100" id="leftside-menu-container" data-simplebar="">
+
+                    <!--- Sidemenu -->
+                    <ul class="side-nav">
+
+                        <li class="side-nav-title side-nav-item"></li>
+
+                        <li class="side-nav-item">
+                            <a data-bs-toggle="collapse"  aria-expanded="false" aria-controls="sidebarDashboards" class="side-nav-link">
+                                <i class="uil-home-alt"></i>
+                                <span> Dashboards </span>
+                            </a>
+                            <div class="collapse" id="sidebarDashboards">
+                                <ul class="side-nav-second-level">
+                                    <li>
+                                        <a>Employee</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>  
+                    <!-- End Sidebar -->
+
+                    <div class="clearfix"></div>
+
+                </div>
+                <!-- Sidebar -left -->
+
+            </div>
+            <!-- Left Sidebar End -->
+
+            <!-- ============================================================== -->
+            <!-- Start Page Content here -->
+            <!-- ============================================================== -->
+
+            <div class="content-page">
+                <div class="content">
+                    <!-- Topbar Start -->
+                    <div class="navbar-custom">
+                        <button class="button-menu-mobile open-left">
+                            <i class="mdi mdi-menu"></i>
+                        </button>
+                        <div class="app-search dropdown d-none d-lg-block">
+                            <form>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- end Topbar -->
+
+                    <!-- Start Content-->
+                    <div class="container-fluid">
+                        
+                        <!-- start page title -->
+                        <div class="row">
+                            <div class="col-12 mt-3">
+                                <div class="page-title-box">
+                                    <div class="page-title-right">
+                                    </div>
+                                    <h4 class="page-title">Data Tables</h4>
+                                </div>
+                            </div>
+
+                        </div> 
+                        <div class="contain">
+                            <div class="row mb-3">
+                                <div class="col-sm-12 col-md-9">
+                                    <div class="col-sm-12 col-md-4 p-0">    
+                                        <button class="btn btn-secondary InsertBtn" data-bs-toggle="modal" data-bs-target="#AddEmpolyee">
+                                            Add Empolyee
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-3 p-0">
+                                    <input class="form-control" type="search" id="top-search" style="width: 96%;" >
+                                </div>
+                            </div>
+                            <div class="row">   
+                                <table id="myTable" class="display">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Name</th>
+                                            <th>Age</th>
+                                            <th>Addresses</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        
+      
+                                    </tbody>
+                                </table>
+                            </div>    
+                        </div>
+                       
+                        <!-- end page title --> 
+
+                    </div> <!-- container -->
+
+                </div> <!-- content -->
+            </div>
+
+            <!-- ============================================================== -->
+            <!-- End Page content -->
+            <!-- ============================================================== -->
+
+            <!-- add Modal -->
+            <div class="modal fade" id="AddEmpolyee" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Empolyee</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                            <div class="mb-3">
+                              <label for="Name" class="form-label">Name</label>
+                              <input type="Name" class="form-control" id="Name" aria-describedby="emailHelp">
+                              <div id="Name-error" class="form-text text-danger"></div>
+                            </div>
+                            <div class="mb-3">
+                              <label for="Age" class="form-label">Age</label>
+                              <input type="text" class="form-control" id="Age" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                              <div id="Age-error" class="form-text text-danger"></div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-8" style="height: 74px;">
+                                        <label for="Adresses" class="form-label">Adresses</label>
+                                        <input type="text" class="form-control" id="Adresses">
+                                        <div id="Adresses-error" class="form-text text-danger"></div>
+                                    </div>
+                                    <div class="col-4" id="AddAdressBtn">
+                                        <button class="btn btn-primary">+</button>
+                                    </div>
+                                </div> 
+                            </div>
+                            <ul class="list-group mb-1">
+                                <li class="list-group-item"> </li>
+                            </ul>
+                            <button id="submitFormBtn" class="btn btn-primary">Add</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+             <!-- update Modal -->
+             <div class="modal fade" id="updateEmpolyee" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Update Empolyee</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                            <div class="mb-3">
+                              <label for="Name" class="form-label">Name</label>
+                              <input type="Name" class="form-control" id="UName" aria-describedby="emailHelp">
+                              <input type="Name" class="form-control" id="uid" aria-describedby="emailHelp" hidden>
+                              <div id="uName-error" class="form-text text-danger"></div>
+                            </div>
+                            <div class="mb-3">
+                              <label for="Age" class="form-label">Age</label>
+                              <input type="text" class="form-control" id="UAge">
+                              <div id="uAge-error" class="form-text text-danger"></div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-8" style="height: 74px;">
+                                        <label for="Adresses" class="form-label">Adresses</label>
+                                        <input type="text" class="form-control" id="UAdresses">
+                                        <div id="uAdresses-error" class="form-text text-danger"></div>
+                                    </div>
+                                    <div class="col-4" id="uAddAdressBtn">
+                                        <button class="btn btn-primary">+</button>
+                                    </div>
+                                </div> 
+                            </div>
+                            <ul class="list-group mb-1">
+                                <li class="list-group-item"> </li>
+                            </ul>
+                            <button id="usubmitFormBtn" class="btn btn-primary">Add</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+        <!-- END wrapper -->
+        <!-- bundle -->
+        <script src="assets/js/vendor.min.js"></script>
+        <script src="assets/js/app.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js" integrity="sha512-+k1pnlgt4F1H8L7t3z95o3/KO+o78INEcXTbnoJQ/F2VqDVhWoaiVml/OEHv9HsVgxUaVW+IbiZPUJQfF/YxZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
+
+    <!-- init data table -->
+    <script>
+        function set_basic_datatable() {
+                var table =  $("#myTable").DataTable({
+                    scrollY: "48vh",
+                    pageLength: 7,
+                    scrollCollapse: true,
+                    paging: false,
+                    paginate: false,
+                    language: {
+                        search: `search`
+                    }
+                });
+                $('#top-search').on('keyup', function() {
+            table.search(this.value).draw();
+        });
+            }
+        set_basic_datatable();
+    </script>
+
+    <!-- display Emploies -->
+    <script>
+        $(document).ready(function(){
+            $.ajax({
+            url: 'https://localhost:7256/api/Employee',
+            type: 'GET',
+            accept: 'text/plain',
+            contentType: 'application/json',
+            success: function (response) {
+                var table = $('#myTable').DataTable();
+                table.clear();
+                $.each(response, function (index, value) {
+                    var addresses = '';
+                    $.each(value.addresses, function (i, v) {
+                        addresses += '<li>' + v.description + '</li>';
+                    });
+                    var row = '<tr>' +
+                        '<td>' + (index + 1) + '</td>' +
+                        '<td>' + value.name + '</td>' +
+                        '<td>' + value.age + '</td>' +
+                        '<td><ul>' + addresses + '</ul></td>' +
+                        '<td class="deleltBtn" ><a class="btn btn-danger" id="deleltB" attr-id='+ value.id +'>Delete</a></td>' +
+                        '<td><button class="btn btn-success" attr-id='+ value.id +' id="UpdateB">update</button></td>' +
+                        '</tr>';
+                    table.row.add($(row)).draw();
+                });
+            },
+            error: function (xhr, status, error) {
+           
+            }
+         });
+        })
+    </script>
+
+    <!-- add Employee -->
+    <script>
+        var Name = "";
+        var Age = 0;
+        var AdressArray = [];
+        $("#AddAdressBtn").on("click", function() {
+            var Address = $("#Adresses").val();
+            AdressArray.push({"description":Address})
+            console.log(AdressArray)
+            $(".list-group").append(`<li class="list-group-item"> ${Address} <span class="remove-item">x</span> </li>`)
+            var Address = $("#Adresses").val("");
+        })
+        $(".remove-item").on("click", function() {
+            var Address = $("#Adresses").val();
+            AdressArray.push({"description":Address})
+            console.log(AdressArray)
+            $(".list-group").append(`<li class="list-group-item"> ${Address} <span class="remove-item">x</span> </li>`)
+            var Address = $("#Adresses").val("");
+        })
+        
+        
+
+        $("#submitFormBtn").on("click", function(){
+            Name = $("#Name").val();
+            Age = $("#Age").val();
+            if(Age == ''){
+                Age = 0;
+            }
+       
+            $.ajax({
+            url: 'https://localhost:7256/api/Employee/addemplyee',
+            type: 'POST',
+            accept: 'text/plain',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                name: Name,
+                age: parseInt(Age),
+                addresses: AdressArray
+            }),
+            success: function (response) {
+                var table = $('#myTable').DataTable();
+                var rowCount = $('#myTable tr').length;
+                var no = parseInt(rowCount) 
+                console.log(no)
+                var addresses = '';
+                    $.each(response.addresses, function (i, v) {
+                        addresses += '<li>' + v.description + '</li>';
+                    
+                    });
+                    var row = '<tr>' +
+                        '<td>' + no + '</td>' +
+                        '<td>' + response.name + '</td>' +
+                        '<td>' + response.age + '</td>' +
+                        '<td><ul>' + addresses + '</ul></td>' +
+                        '<td class="deleltBtn"><button class="btn btn-danger" attr-id='+ response.id +'>Delete</button></td>' +
+                        '<td><button class="btn btn-success" attr-id='+ response.id +' id="UpdateB">update</button></td>' +
+                        '</tr>';
+                    table.row.add($(row)).draw();
+                      $("#Name").val("");
+                      $("#Age").val(""); 
+                      AdressArray.length = 0;
+                      $(".list-group").text("");
+                      $("#AddEmpolyee").modal('hide')
+                
+            },
+
+            error:function(response){
+       
+                //check if there is error or not  on inputs
+                if(response.responseJSON.errors.Name != null){
+                    $("#Name-error").text(response.responseJSON.errors.Name)
+                } else{
+                    $("#Name-error").text("")
+                }
+                if(response.responseJSON.errors.Age != null){
+                    $("#Age-error").text(response.responseJSON.errors.Age)
+                }else{
+                    $("#Age-error").text("")
+                }
+                if(response.responseJSON.errors.Addresses != null){
+                    $("#Adresses-error").text(response.responseJSON.errors.Addresses)
+                } else{
+                    $("#Adresses-error").text("")
+                }
+            }
+        });
+        })
+     </script>
+ 
+    <!-- delete Employee -->
+    <script>
+        $(document).on("click", "#deleltB", function() {
+            var id = $(this).attr("attr-id")
+            var Tr = $(this).parent().parent()
+            $.ajax({
+            url: `https://localhost:7256/api/Employee?id=${id}`,
+            type: 'DELETE',
+            success: function (response) {
+                console.log($(this))
+                Tr.remove()
+            },
+        
+        })
+    })  
+    </script>
+
+    <!-- update Employee -->
+    <script>
+        var addressArr = []
+         $(document).on("click", "#UpdateB", function() {
+            var id = $(this).attr("attr-id")
+            $("#uid").val(id);
+            $.ajax({
+            url: ` https://localhost:7256/api/Employee/GetEmpbyId?id=${id}`,
+            type: 'GET',
+            success: function (response) {
+                $("#UName").val(response.name);
+                $("#UAge").val(response.age); 
+                addressArr = response.addresses;
+                $(".list-group").text("")
+                $.each(response.addresses, function(index, item) {
+                    $(".list-group").append(`<li class="list-group-item">${item.description}</li>`);
+                });
+                $("#updateEmpolyee").modal("show");
+            },
+          })
+          $("#uAddAdressBtn").on("click", function() {
+            var uAddress = $("#UAdresses").val();
+            addressArr.push({"description":uAddress})
+            $(".list-group").append(`<li class="list-group-item"> ${uAddress} </li>`)
+            
+         })
+        })
+
+        $("#usubmitFormBtn").on("click", function() {
+            uid = $("#uid").val();
+            uName = $("#UName").val();
+            uAge  = $("#UAge").val();
+            if(Age == ''){
+                Age = 0;
+            }
+            $.ajax({
+            url: 'https://localhost:7256/api/Employee',
+            type: 'PUT',
+            accept: 'text/plain',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                id: parseInt(uid),
+                name: uName,
+                age: parseInt(uAge),
+                addresses: addressArr
+            }),
+            success: function (response) {
+                $("#updateEmpolyee").modal('hide')
+            },
+
+            error:function(response){
+             //check if there is error or not  on inputs
+             if(response.responseJSON.errors.Name != null){
+                    $("#uName-error").text(response.responseJSON.errors.Name)
+                } else{
+                    $("#uName-error").text("")
+                }
+                if(response.responseJSON.errors.Age != null){
+                    $("#uAge-error").text(response.responseJSON.errors.Age)
+                }else{
+                    $("#uAge-error").text("")
+                }
+                if(response.responseJSON.errors.Addresses != null){
+                    $("#uAdresses-error").text(response.responseJSON.errors.Addresses)
+                } else{
+                    $("#uAdresses-error").text("")
+                }
+            }
+        });
+        })
+    </script>
+    
+    </body>
+</html>
