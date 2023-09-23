@@ -17,10 +17,11 @@ namespace TeleWare.Inferastructure
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("constring"));
             });
+          
 
-            /*  builder.WebHost.UseUrls("http://localhost:8080");*/
+            builder.WebHost.UseUrls("https://localhost:7256");
 
-
+           
             builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             builder.Services.AddScoped<IAddressReposiory, AddressReposiory>();
             return builder;

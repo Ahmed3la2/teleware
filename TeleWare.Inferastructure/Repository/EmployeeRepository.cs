@@ -19,10 +19,10 @@ namespace TeleWare.Core.Interfaces
         }
         public async Task<Employee> AddEmployeeAsync(Employee employee)
         {
-            await _context.Employees.AddAsync(employee);
+            var  emp =   await _context.Employees.AddAsync(employee);
+            var emptoReturn = emp.Entity;
             await _context.SaveChangesAsync();
-
-            return employee;
+            return emptoReturn;
         }
 
         public async Task<Employee> DeleteEmployeeAsync(Employee employee)

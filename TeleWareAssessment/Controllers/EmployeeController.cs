@@ -25,8 +25,8 @@ namespace TeleWare.Api.Controllers
         public async Task<EmployeeDTO> AddEmployee(EmployeeDTO EmployeeDTO)
         {
             var empolyee = _mapper.Map<Employee>(EmployeeDTO);
-            await _employeeReposiory.AddEmployeeAsync(empolyee);
-            return EmployeeDTO;
+            var empToReturn = _mapper.Map<EmployeeDTO>(await _employeeReposiory.AddEmployeeAsync(empolyee));
+            return empToReturn;
         }
 
         [HttpGet]

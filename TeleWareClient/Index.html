@@ -369,8 +369,11 @@
                 addresses: AdressArray
             }),
             success: function (response) {
+            
                 var table = $('#myTable').DataTable();
                 var rowCount = $('#myTable tr').length;
+              
+
                 var no = parseInt(rowCount) 
                 console.log(no)
                 var addresses = '';
@@ -378,14 +381,16 @@
                         addresses += '<li>' + v.description + '</li>';
                     
                     });
+
                     var row = '<tr>' +
                         '<td>' + no + '</td>' +
                         '<td>' + response.name + '</td>' +
                         '<td>' + response.age + '</td>' +
                         '<td><ul>' + addresses + '</ul></td>' +
-                        '<td class="deleltBtn"><button class="btn btn-danger" attr-id='+ response.id +'>Delete</button></td>' +
+                        '<td class="deleltBtn"><button class="btn btn-danger" id="deleltB" attr-id='+ response.id +'>Delete</button></td>' +
                         '<td><button class="btn btn-success" attr-id='+ response.id +' id="UpdateB">update</button></td>' +
                         '</tr>';
+
                     table.row.add($(row)).draw();
                       $("#Name").val("");
                       $("#Age").val(""); 
