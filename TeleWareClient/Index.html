@@ -286,6 +286,17 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js" integrity="sha512-+k1pnlgt4F1H8L7t3z95o3/KO+o78INEcXTbnoJQ/F2VqDVhWoaiVml/OEHv9HsVgxUaVW+IbiZPUJQfF/YxZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
 
+
+
+
+
+
+    <!----------------------- localhost URL -------------------------------->
+    <script>
+        var localhost = "https://localhost:7256/"
+    </script>
+
+
     <!-- init data table -->
     <script>
         function set_basic_datatable() {
@@ -310,22 +321,21 @@
     <script>
         // Display Employee On Page Load 
         $(document).ready(function(){
+            
             var count;
             $.ajax({
-            url: 'https://localhost:7256/api/Employee/GetCountOfEmp',
+            url: `${localhost}api/Employee/GetCountOfEmp`,
             type: 'GET',
             accept: 'text/plain',
             contentType: 'application/json',
             success: function (response) {
-                console.log("noumvedfasd")
-                console.log(response)
                 count = response
             }
             })
 
             $(".dataTables_empty").parent().remove();
             $.ajax({
-            url: 'https://localhost:7256/api/Employee',
+            url: `${localhost}api/Employee`,
             type: 'GET',
             accept: 'text/plain',
             contentType: 'application/json',
@@ -363,7 +373,7 @@
         $(document).on("click", ".page-item", function(){
             var activePageNumber = parseInt($(this).find("a").text());
             $.ajax({
-                url: `https://localhost:7256/api/Employee/GetPaginatedEmp?page=${activePageNumber}&pageSize=4`,
+                url: `${localhost}api/Employee/GetPaginatedEmp?page=${activePageNumber}&pageSize=4`,
                 type: 'GET',
                 accept: 'text/plain',
                 contentType: 'application/json',
@@ -389,7 +399,6 @@
                 },
 
             });
-            console.log("test")
             $('#pagination li.active').removeClass('active');
             $(this).addClass('active');
            });      
@@ -429,7 +438,7 @@
             }
        
             $.ajax({
-            url: 'https://localhost:7256/api/Employee/addemplyee',
+            url: `${localhost}api/Employee/addemplyee`,
             type: 'POST',
             accept: 'text/plain',
             contentType: 'application/json',
@@ -441,8 +450,6 @@
             success: function (response) {
                 var table = $('#myTable').DataTable();
                 var rowCount = $('#myTable tbody tr').length;
-                console.log("length")
-                console.log(rowCount)
                 var no = parseInt(rowCount)  + 1
                 var addresses = '';
                 $.each(response.addresses, function (i, v) {
@@ -505,10 +512,9 @@
             var table = $('#myTable').DataTable();
             var Tr = $(this).parent().parent();
             $.ajax({
-                url: `https://localhost:7256/api/Employee?id=${id}`,
+                url: `${localhost}api/Employee?id=${id}`,
                 type: 'DELETE',
                 success: function (response) {
-                  console.log($(this))
                   table.row(Tr).remove().draw();
                   $(".dataTables_empty").parent().remove();
             },
@@ -529,7 +535,7 @@
             no = $(currentTR).find('td:first-child').text();
             $("#uid").val(id);
             $.ajax({
-            url: ` https://localhost:7256/api/Employee/GetEmpbyId?id=${id}`,
+            url: `${localhost}api/Employee/GetEmpbyId?id=${id}`,
             type: 'GET',
             success: function (response) {
                 $(".dataTables_empty").parent().remove();
@@ -570,7 +576,7 @@
                 Age = 0;
             }
             $.ajax({
-            url: 'https://localhost:7256/api/Employee',
+            url: `${localhost}api/Employee`,
             type: 'PUT',
             accept: 'text/plain',
             contentType: 'application/json',
