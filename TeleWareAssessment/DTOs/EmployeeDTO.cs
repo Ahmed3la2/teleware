@@ -10,7 +10,7 @@ namespace TeleWareAssessment.DTOs
         [RegularExpression(@"^\S+$", ErrorMessage = "The Name Shoudnot Have Spaces")]
         public string Name { get; set; }
 
-        [Range(21, int.MaxValue,ErrorMessage = "The Age Must Be Between 21 And 90")]
+        [Range(21, 90, ErrorMessage = "The Age Must Be Between 21 And 92")]
         public int Age { get; set; }
 
         [NotEmptyList(ErrorMessage = "Addresses list shouldn't be empty.")]

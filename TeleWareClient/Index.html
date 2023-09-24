@@ -28,9 +28,7 @@
             background-color: white;
             border: 1px solid #EEE;
         }
-        ul{
-            list-style-type: none;
-        }
+       
         #myTable_filter{
             display: none;
         }
@@ -49,9 +47,16 @@
             text-align: right;
         }
 
+        .list-group-item{
+            position: relative;
+        }
         .remove-item{
-            margin-left: 87%;
+            position: absolute;
+            right: 14px;
             cursor: pointer;
+        }
+        #myTable_length{
+            display: none;
         }
     </style>
 
@@ -173,7 +178,13 @@
       
                                     </tbody>
                                 </table>
-                            </div>    
+                            </div>  
+                            <div class="row mt-3 ">
+                                <nav>
+                                    <ul id="pagination" class="pagination pagination-rounded mb-0  justify-content-end">
+                                    </ul>
+                                </nav>
+                            </div>  
                         </div>
                        
                         <!-- end page title --> 
@@ -203,7 +214,7 @@
                             </div>
                             <div class="mb-3">
                               <label for="Age" class="form-label">Age</label>
-                              <input type="text" class="form-control" id="Age" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                              <input type="text" class="form-control" maxlength="2" id="Age" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                               <div id="Age-error" class="form-text text-danger"></div>
                             </div>
                             <div class="mb-3">
@@ -244,7 +255,7 @@
                             </div>
                             <div class="mb-3">
                               <label for="Age" class="form-label">Age</label>
-                              <input type="text" class="form-control" id="UAge">
+                              <input type="text" class="form-control" maxlength="2" id="UAge">
                               <div id="uAge-error" class="form-text text-danger"></div>
                             </div>
                             <div class="mb-3">
@@ -259,7 +270,7 @@
                                     </div>
                                 </div> 
                             </div>
-                            <ul class="list-group mb-1">
+                            <ul class="list-group UpdateList mb-1">
                                 <li class="list-group-item"> </li>
                             </ul>
                             <button id="usubmitFormBtn" class="btn btn-primary">Add</button>
@@ -289,15 +300,30 @@
                     }
                 });
                 $('#top-search').on('keyup', function() {
-            table.search(this.value).draw();
-        });
-            }
+                 table.search(this.value).draw();
+          });
+        }
         set_basic_datatable();
     </script>
 
     <!-- display Emploies -->
     <script>
+        // Display Employee On Page Load 
         $(document).ready(function(){
+            var count;
+            $.ajax({
+            url: 'https://localhost:7256/api/Employee/GetCountOfEmp',
+            type: 'GET',
+            accept: 'text/plain',
+            contentType: 'application/json',
+            success: function (response) {
+                console.log("noumvedfasd")
+                console.log(response)
+                count = response
+            }
+            })
+
+            $(".dataTables_empty").parent().remove();
             $.ajax({
             url: 'https://localhost:7256/api/Employee',
             type: 'GET',
@@ -320,37 +346,81 @@
                         '<td><button class="btn btn-success" attr-id='+ value.id +' id="UpdateB">update</button></td>' +
                         '</tr>';
                     table.row.add($(row)).draw();
+                    
                 });
+                var totalPages = Math.ceil(count / 4);
+                for (var i = 1; i <= totalPages; i++) {
+                    if(i == 1){
+                        $("#pagination").append(`<li class="page-item active"><a class="page-link" href="javascript: void(0);">${i}</a></li>`);
+                    }else{
+                        $("#pagination").append(`<li class="page-item"><a class="page-link" href="javascript: void(0);">${i}</a></li>`);
+
+                    }
+                }
             },
-            error: function (xhr, status, error) {
-           
-            }
-         });
-        })
+
+        });
+        $(document).on("click", ".page-item", function(){
+            var activePageNumber = parseInt($(this).find("a").text());
+            $.ajax({
+                url: `https://localhost:7256/api/Employee/GetPaginatedEmp?page=${activePageNumber}&pageSize=4`,
+                type: 'GET',
+                accept: 'text/plain',
+                contentType: 'application/json',
+                success: function (response) {
+                    var table = $('#myTable').DataTable();
+                    table.clear();
+                    $.each(response, function (index, value) {
+                        var addresses = '';
+                        $.each(value.addresses, function (i, v) {
+                            addresses += '<li>' + v.description + '</li>';
+                        });
+                        var row = '<tr>' +
+                            '<td>' + (index + 1) + '</td>' +
+                            '<td>' + value.name + '</td>' +
+                            '<td>' + value.age + '</td>' +
+                            '<td><ul>' + addresses + '</ul></td>' +
+                            '<td class="deleltBtn" ><a class="btn btn-danger" id="deleltB" attr-id='+ value.id +'>Delete</a></td>' +
+                            '<td><button class="btn btn-success" attr-id='+ value.id +' id="UpdateB">update</button></td>' +
+                            '</tr>';
+                        table.row.add($(row)).draw();
+                    });
+                  
+                },
+
+            });
+            console.log("test")
+            $('#pagination li.active').removeClass('active');
+            $(this).addClass('active');
+           });      
+       })
+
     </script>
 
     <!-- add Employee -->
     <script>
+        $(".dataTables_empty").parent().remove();
         var Name = "";
         var Age = 0;
         var AdressArray = [];
+
+        // on Click + in Add Modal Add Address in array And  DOM
         $("#AddAdressBtn").on("click", function() {
             var Address = $("#Adresses").val();
+            if(Address == "") return;
             AdressArray.push({"description":Address})
-            console.log(AdressArray)
-            $(".list-group").append(`<li class="list-group-item"> ${Address} <span class="remove-item">x</span> </li>`)
-            var Address = $("#Adresses").val("");
-        })
-        $(".remove-item").on("click", function() {
-            var Address = $("#Adresses").val();
-            AdressArray.push({"description":Address})
-            console.log(AdressArray)
-            $(".list-group").append(`<li class="list-group-item"> ${Address} <span class="remove-item">x</span> </li>`)
+            $(".list-group").append(`<li class="list-group-item " Attr-index="${AdressArray.length}"> ${Address} <span class="remove-item text-danger">x</span> </li>`)
             var Address = $("#Adresses").val("");
         })
         
+         // on Click x in Add Modal remove Address from Array And The DOM
+        $(document).on("click", ".remove-item", function() {
+            var index = parseInt($(this).parent().attr("Attr-index"));
+            AdressArray.splice(index - 1, 1);
+            $(this).parent().remove();
+           
+        })
         
-
         $("#submitFormBtn").on("click", function(){
             Name = $("#Name").val();
             Age = $("#Age").val();
@@ -369,35 +439,36 @@
                 addresses: AdressArray
             }),
             success: function (response) {
-            
                 var table = $('#myTable').DataTable();
-                var rowCount = $('#myTable tr').length;
-              
-
-                var no = parseInt(rowCount) 
-                console.log(no)
+                var rowCount = $('#myTable tbody tr').length;
+                console.log("length")
+                console.log(rowCount)
+                var no = parseInt(rowCount)  + 1
                 var addresses = '';
-                    $.each(response.addresses, function (i, v) {
-                        addresses += '<li>' + v.description + '</li>';
-                    
-                    });
+                $.each(response.addresses, function (i, v) {
+                    addresses += '<li>' + v.description + '</li>';
+                
+                });
 
-                    var row = '<tr>' +
-                        '<td>' + no + '</td>' +
-                        '<td>' + response.name + '</td>' +
-                        '<td>' + response.age + '</td>' +
-                        '<td><ul>' + addresses + '</ul></td>' +
-                        '<td class="deleltBtn"><button class="btn btn-danger" id="deleltB" attr-id='+ response.id +'>Delete</button></td>' +
-                        '<td><button class="btn btn-success" attr-id='+ response.id +' id="UpdateB">update</button></td>' +
-                        '</tr>';
+                var row = '<tr>' +
+                    '<td>' + no + '</td>' +
+                    '<td>' + response.name + '</td>' +
+                    '<td>' + response.age + '</td>' +
+                    '<td><ul>' + addresses + '</ul></td>' +
+                    '<td class="deleltBtn"><button class="btn btn-danger" id="deleltB" attr-id='+ response.id +'>Delete</button></td>' +
+                    '<td><button class="btn btn-success" attr-id='+ response.id +' id="UpdateB">update</button></td>' +
+                    '</tr>';
 
                     table.row.add($(row)).draw();
+
                       $("#Name").val("");
                       $("#Age").val(""); 
                       AdressArray.length = 0;
                       $(".list-group").text("");
                       $("#AddEmpolyee").modal('hide')
-                
+                      $("#Name-error").text("")
+                      $("#Age-error").text("")
+                      $("#Adresses-error").text("")
             },
 
             error:function(response){
@@ -425,46 +496,68 @@
  
     <!-- delete Employee -->
     <script>
+        // On Click Delete Button Take The Custome Attribute In $(This) element Id.
+       // And Call Ajax and Delete it From DOM and DB
         $(document).on("click", "#deleltB", function() {
+            $(".dataTables_empty").parent().remove();
             var id = $(this).attr("attr-id")
             var Tr = $(this).parent().parent()
+            var table = $('#myTable').DataTable();
+            var Tr = $(this).parent().parent();
             $.ajax({
-            url: `https://localhost:7256/api/Employee?id=${id}`,
-            type: 'DELETE',
-            success: function (response) {
-                console.log($(this))
-                Tr.remove()
+                url: `https://localhost:7256/api/Employee?id=${id}`,
+                type: 'DELETE',
+                success: function (response) {
+                  console.log($(this))
+                  table.row(Tr).remove().draw();
+                  $(".dataTables_empty").parent().remove();
             },
-        
         })
     })  
     </script>
 
     <!-- update Employee -->
     <script>
-        var addressArr = []
+        $(".dataTables_empty").parent().remove();
+         var addressArr = []
+         var currentTR;
+         var no;
+         var Tr = $(this).parent().parent();
          $(document).on("click", "#UpdateB", function() {
             var id = $(this).attr("attr-id")
+            currentTR = $(this).parent().parent();
+            no = $(currentTR).find('td:first-child').text();
             $("#uid").val(id);
             $.ajax({
             url: ` https://localhost:7256/api/Employee/GetEmpbyId?id=${id}`,
             type: 'GET',
             success: function (response) {
+                $(".dataTables_empty").parent().remove();
                 $("#UName").val(response.name);
                 $("#UAge").val(response.age); 
                 addressArr = response.addresses;
-                $(".list-group").text("")
+                $(".list-group.UpdateList").text("")
                 $.each(response.addresses, function(index, item) {
-                    $(".list-group").append(`<li class="list-group-item">${item.description}</li>`);
+                    $(".list-group.UpdateList").append(`<li class="list-group-item"> <span class="remove-item text-danger">x</span>${item.description}</li>`);
                 });
+
                 $("#updateEmpolyee").modal("show");
             },
           })
           $("#uAddAdressBtn").on("click", function() {
             var uAddress = $("#UAdresses").val();
+            if(uAddress == "") return;
             addressArr.push({"description":uAddress})
-            $(".list-group").append(`<li class="list-group-item"> ${uAddress} </li>`)
+            $(".list-group.UpdateList").append(`<li class="list-group-item"> <span class="remove-item text-danger">x</span> ${uAddress} </li>`)
+            $("#UAdresses").val("");
             
+         })
+
+          $(document).on("click", ".remove-item", function() {
+            var index = parseInt($(this).parent().attr("Attr-index"));
+            addressArr.splice(index - 1, 1);
+            $(this).parent().remove();
+           
          })
         })
 
@@ -472,6 +565,7 @@
             uid = $("#uid").val();
             uName = $("#UName").val();
             uAge  = $("#UAge").val();
+            var table = $('#myTable').DataTable();
             if(Age == ''){
                 Age = 0;
             }
@@ -487,6 +581,24 @@
                 addresses: addressArr
             }),
             success: function (response) {
+                table.row(currentTR).remove().draw();
+                var addresses = '';
+                $.each(response.addresses, function (i, v) {
+                    addresses += '<li>' + v.description + '</li>';
+                
+                });
+                var row = '<tr>' +
+                            '<td>' + no + '</td>' +
+                            '<td>' + response.name + '</td>' +
+                            '<td>' + response.age + '</td>' +
+                            '<td><ul>' + addresses + '</ul></td>' +
+                            '<td class="deleltBtn"><button class="btn btn-danger" id="deleltB" attr-id='+ response.id +'>Delete</button></td>' +
+                            '<td><button class="btn btn-success" attr-id='+ response.id +' id="UpdateB">update</button></td>' +
+                         '</tr>';
+                $("#uName-error").text("")
+                $("#uAge-error").text("")
+                $("#uAdresses-error").text("")
+                table.row.add($(row)).draw();
                 $("#updateEmpolyee").modal('hide')
             },
 

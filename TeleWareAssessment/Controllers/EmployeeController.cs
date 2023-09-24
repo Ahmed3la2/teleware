@@ -30,10 +30,10 @@ namespace TeleWare.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<List<EmployeeDTO>> AddEmployee()
+        public async Task<List<EmployeeDTO>> GetAllEmpolyee()
         {
             var x = _mapper.Map<List<EmployeeDTO>>(await _employeeReposiory.GetAllEmployeeAsync());
-            return x;
+            return x.Take(4).ToList();
         }
 
         [HttpGet("GetEmpbyId")]
@@ -66,12 +66,32 @@ namespace TeleWare.Api.Controllers
 
             await _AddressReposiory.RemoveAllAdressByEmpId(UpdatedEmpolyee.Id);
 
-            await _employeeReposiory.updateEmployeeAsync(UpdatedEmpolyee);
+            var EmpToReturn = await _employeeReposiory.updateEmployeeAsync(UpdatedEmpolyee);
 
-            return Ok(EmployeeDTO);
+            var EmpToReturnDto = _mapper.Map<EmployeeDTO>(EmpToReturn);
+
+
+            return Ok(EmpToReturnDto);
         }
 
-       
+
+        [HttpGet("GetPaginatedEmp")]
+        public async Task<ActionResult<List<EmployeeDTO>>> GetPaginatedEmployee(int page, int pageSize = 3)
+        {
+            var empolyees = await _employeeReposiory.GetlPaginatedEmployeeAsync(page, pageSize);
+
+            var EmployeeToReurnDTO = _mapper.Map<List<EmployeeDTO>>(empolyees);
+
+            return EmployeeToReurnDTO;
+        }
+
+        [HttpGet("GetCountOfEmp")]
+        public async Task<int> GetPaginatedEmployee()
+        {
+            var empolyees = await _employeeReposiory.GetAllEmployeeAsync();
+
+            return empolyees.Count();
+        }
 
     }
 }

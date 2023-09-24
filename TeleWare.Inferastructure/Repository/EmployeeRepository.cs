@@ -43,12 +43,24 @@ namespace TeleWare.Core.Interfaces
             return await _context.Employees.Include(l=>l.Addresses).FirstOrDefaultAsync(l=>l.Id == Id);
         }
 
-        public async Task updateEmployeeAsync(Employee employee)
+        public async Task<IEnumerable<Employee>> GetlPaginatedEmployeeAsync(int page = 1, int pageSize = 10)
         {
-            _context.Employees.Update(employee);
-            await _context.SaveChangesAsync();
+            var Employees = await _context.Employees.Include(l=>l.Addresses).ToListAsync();
+            var totalItems = Employees.Count();
+            var totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
+            var paginatedItems = Employees.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            return paginatedItems;
+
         }
-        // delete all address
+
+        public async Task<Employee> updateEmployeeAsync(Employee employee)
+        {
+           var empolyee =  _context.Employees.Update(employee).Entity;
+            await _context.SaveChangesAsync();
+            return empolyee;
+        }
+        
        
     }
 }

@@ -21,4 +21,8 @@
     <ProjectReference Include="..\TeleWare.Core\TeleWare.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\" />
+  </ItemGroup>
+
 </Project>

@@ -11,8 +11,9 @@ namespace TeleWare.Core.Interfaces
     {
         Task<Employee> AddEmployeeAsync(Employee employee);
         Task<IEnumerable<Employee>> GetAllEmployeeAsync();
+        Task<IEnumerable<Employee>> GetlPaginatedEmployeeAsync(int page, int pageSize);
         Task<Employee> DeleteEmployeeAsync(Employee employee);
-        Task updateEmployeeAsync(Employee employee);
+        Task<Employee> updateEmployeeAsync(Employee employee);
         Task<Employee> GetEmployeeByIdAsync(int Id);
     }
 }
